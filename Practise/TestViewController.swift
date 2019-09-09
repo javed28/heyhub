@@ -138,7 +138,7 @@ class TestViewController: UIViewController, CLLocationManagerDelegate,GMSMapView
         self.present(uiAlert, animated: true, completion: nil)
         
         uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-            if let url = NSURL(string:UIApplicationOpenSettingsURLString) {
+            if let url = NSURL(string:UIApplication.openSettingsURLString) {
                 UIApplication.shared.openURL(url as URL)
             }
         }))
