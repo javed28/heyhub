@@ -71,7 +71,8 @@ class MapViewViewController: UIViewController {
                     print("reverse geodcode fail: \(error!.localizedDescription)")
                 }
                 let pm = placemarks! as [CLPlacemark]
-                
+                self.addressString = ""
+                self.addressTitle = ""
                 if pm.count > 0 {
                     let pm = placemarks![0]
                     print(pm.country)
@@ -116,13 +117,20 @@ class MapViewViewController: UIViewController {
     }
     
     func setCamera(dbLat : Double,dbLong : Double){
-        let camera = GMSCameraPosition.camera(withLatitude: dbLat, longitude: dbLong, zoom: 15.0)
+        let camera = GMSCameraPosition.camera(withLatitude: dbLat, longitude: dbLong, zoom: 10.0)
         mapMainView.camera = camera
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: dbLat, longitude: dbLong)
         marker.title = addressTitle
         marker.snippet = addressString
         marker.map = mapMainView
+        
+        let circleCenter : CLLocationCoordinate2D  = CLLocationCoordinate2DMake(self.minlat, self.minlon);
+        self.circle = GMSCircle(position: circleCenter, radius: 1000)
+        self.circle.fillColor = UIColor(red: 0.0, green: 0.7, blue: 0, alpha: 0.1)
+        self.circle.strokeColor = UIColor(red: 255/255, green: 153/255, blue: 51/255, alpha: 0.5)
+        self.circle.strokeWidth = 10.0;
+        self.circle.map = self.mapMainView;
     }
     
     func readFile(){
@@ -147,7 +155,7 @@ class MapViewViewController: UIViewController {
                     print("maxlat,------",self.maxlat)
                     
                     
-                    self.getAddressFromLatLon(pdblLatitude: minlat, withLongitude: minlon)
+                   
                     let checkBounds = GMSMutablePath()
                     checkBounds.add(CLLocationCoordinate2D(latitude: self.minlat, longitude: self.minlon))
                     checkBounds.add(CLLocationCoordinate2D(latitude: self.maxlat, longitude: self.maxlon))
@@ -168,6 +176,7 @@ class MapViewViewController: UIViewController {
                     path.add(CLLocationCoordinate2D(latitude: LatArray[i], longitude: LongArray[i]))
 
                     }
+                     self.getAddressFromLatLon(pdblLatitude: Double(LatArray[0]), withLongitude: Double(LongArray[0]))
                     let polygon = GMSPolygon(path : path)
                     polygon.fillColor = UIColor(red: 0.0, green: 0.7, blue: 0, alpha: 0.1)
                     polygon.strokeColor = UIColor(red: 255/255, green: 153/255, blue: 51/255, alpha: 0.5)
@@ -175,18 +184,33 @@ class MapViewViewController: UIViewController {
                     polygon.geodesic = true
                     polygon.map = self.mapMainView
                     
-                    let circleCenter : CLLocationCoordinate2D  = CLLocationCoordinate2DMake(self.minlat, self.minlon);
-                    self.circle = GMSCircle(position: circleCenter, radius: 1000)
-                    self.circle.fillColor = UIColor(red: 0.0, green: 0.7, blue: 0, alpha: 0.1)
-                    self.circle.strokeColor = UIColor(red: 255/255, green: 153/255, blue: 51/255, alpha: 0.5)
-                    self.circle.strokeWidth = 10.0;
-                    self.circle.map = self.mapMainView;
+//                    if GMSGeometryContainsLocation(CLLocationCoordinate2DMake(Double(LatArray.count-1), Double(LongArray.count-1)), path, true) {
+//                        alert(title:"000000n YEAH!!!", message: "You are inside the polygon")
+//
+//
+//                    } else {
+//                        alert(title: "00000 OPPS!!!", message: "You are outside the polygon")
+//
+//                    }
                     
+                    if GMSGeometryIsLocationOnPathTolerance(CLLocationCoordinate2DMake(Double(LatArray[0]), Double(LongArray[0])), path, true, 30){
+                        alert(title:"YEAH!!!", message: "You are inside the polygon")
+                    }else{
+                        alert(title: "OPPS!!!", message: "You are outside the polygon")
+                    }
+
                 }
             } catch {
                 // handle error
             }
         }
+    }
+    
+    func alert(title: String,message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(OKAction)
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 extension MapViewViewController : CLLocationManagerDelegate{
