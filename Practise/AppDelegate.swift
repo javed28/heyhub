@@ -8,11 +8,31 @@
 
 import UIKit
 import GoogleMaps
+import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "Practise")
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error {
+                
+                fatalError("Unresolved error \(error)")
+            }
+        })
+        return container
+    }()
 
+    lazy var persistent : NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "Practise")
+        container.loadPersistentStores(completionHandler: {(storeDescription,error) in
+            if let error = error{
+                fatalError("Unresolved")
+            }
+        })
+        return container
+    }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

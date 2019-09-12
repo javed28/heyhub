@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import GoogleMaps
+import CoreData
 
 class MapViewViewController: UIViewController {
     var locationManager : CLLocationManager!
@@ -23,14 +24,45 @@ class MapViewViewController: UIViewController {
     var addressTitle = String()
     var currlat = Double()
     var currlon = Double()
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setMapView()
         determineMyCurrentLocation()
+        saveDataToCoreData()
         // Do any additional setup after loading the view.
     }
     
+    func saveDataToCoreData(){
+        let managedContext = appDelegate!.persistentContainer.viewContext
+        let userEntity = NSEntityDescription.entity(forEntityName: "User", in: managedContext)!
+        let newUser = NSManagedObject(entity: userEntity, insertInto: managedContext)
+        newUser.setValue("Javed11", forKey: "username")
+        newUser.setValue("Password", forKey: "password")
+        do{
+            try managedContext.save()
+            fetchUserDataFromCoreData()
+        }catch{
+            print("Saving Failed")
+        }
+    }
+    
+    func fetchUserDataFromCoreData(){
+        let managedContext = appDelegate!.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+        request.returnsDistinctResults = false
+        request.fetchLimit = 1
+        request.predicate = NSPredicate(format: "username = %@", "Javed11")
+        do{
+            let result = try managedContext.fetch(request)
+            for data in result as! [NSManagedObject]{
+                print("Data----",data.value(forKey: "username") as! String)
+            }
+        }catch{
+            print("Fetching Failed---")
+        }
+    }
 
     /*
     // MARK: - Navigation
