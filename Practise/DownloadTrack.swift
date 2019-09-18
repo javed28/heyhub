@@ -7,24 +7,17 @@
 //
 
 import Foundation
-struct DownloadTrack : Decodable{
+struct DownloadTrack{
     
     var fileName : String
     var url : URL
+    let index: Int
+    var downloaded = false
     
-    enum Codingkeys: String,CodingKey{
-        case fileName
-        case url
-    }
-    
-}
-extension DownloadTrack{
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: Codingkeys.self)
-        self.fileName =  try container.decode(String.self, forKey: .fileName)
-        self.url = URL(string: try container.decode(String.self, forKey: .url))!
+    init(name: String, previewURL: URL, index: Int) {
+        self.fileName = name
+        self.url = previewURL
+        self.index = index
     }
 }
-struct DownloadList : Decodable{
-    let results : [DownloadTrack]
-}
+

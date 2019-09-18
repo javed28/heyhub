@@ -24,7 +24,8 @@ class DownloadCell: UITableViewCell {
     @IBOutlet var btnPauseOrResume : UIButton!
     @IBOutlet var btnCancel : UIButton!
     weak var delegate: DownloadCellDelegate?
-    var arrDownlaod = [Download]()
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -52,8 +53,7 @@ class DownloadCell: UITableViewCell {
     }
     
     @IBAction func downloadTapped(_ sender : UIButton){
-        //delegate?.startDownload(downloadTaskInfo: self)
-        delegate?.startallDownload()
+        delegate?.startDownload(downloadTaskInfo: self)
     }
     
     func downloadAllTapped(){
@@ -61,20 +61,31 @@ class DownloadCell: UITableViewCell {
         
     }
     
-    func conigure(track : DownloadTrack,download : Download?,downloaded : Bool){
+    func conigure(track : DownloadTrack,download : Download?, downloaded: Bool){
         lblTitle.text = track.fileName
-        arrDownlaod.append(download!)
+        downloadprogress.progress = 0.0
+        //var showDownloadControls = false
+        //download!.isDownloading = true
         var showDownloadControls = false
-        
         if let download = download{
             showDownloadControls = true
-            lblPercent.text = download.isDownloading ? "Downloading..." : "Paused"
-            let title = download.isDownloading ? "Pause" : "Resume"
-            btnPauseOrResume.setTitle(title, for: .normal)
+            lblPercent.text = download.isDownloading ? "100%" : "0%"
+            
         }
         selectionStyle = downloaded ? UITableViewCell.SelectionStyle.gray : UITableViewCell.SelectionStyle.none
-        btnPauseOrResume.isHidden = !showDownloadControls
-        btnCancel.isHidden = !showDownloadControls
+        btnPauseOrResume.isHidden = true
+        btnCancel.isHidden = true
+        
+        
+        downloadprogress.isHidden = download!.isDownloading ? false : true
+        lblPercent.isHidden = download!.isDownloading ? false : true
+        
+        //btnDownload.isHidden = downloaded || showDownloadControls
+    }
+    
+    func updateDisplay(progress: Float, totalSize : String) {
+        downloadprogress.progress = progress
+        lblPercent.text = String(format: "%.1f%% of %@", progress * 100, totalSize)
     }
     
 }

@@ -29,10 +29,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPo-dv-0mq">
-                        <rect key="frame" x="260" y="70" width="65" height="30"/>
+                        <rect key="frame" x="225" y="70" width="100" height="30"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="Enw-bw-hn5"/>
-                            <constraint firstAttribute="width" constant="65" id="aVE-cm-D5Z"/>
+                            <constraint firstAttribute="width" constant="100" id="90w-K2-pJI"/>
+                            <constraint firstAttribute="height" constant="30" id="DSS-vJ-YUH"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
@@ -45,12 +45,13 @@
                         </constraints>
                     </progressView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgB-bT-wio">
-                        <rect key="frame" x="20" y="70" width="65" height="30"/>
+                        <rect key="frame" x="20" y="70" width="70" height="30"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="Nyi-Cj-8XA"/>
-                            <constraint firstAttribute="width" constant="65" id="tx5-ci-9oE"/>
+                            <constraint firstAttribute="width" constant="70" id="rpr-pc-M5V"/>
+                            <constraint firstAttribute="height" constant="30" id="u4m-bC-qa1"/>
                         </constraints>
-                        <state key="normal" title="Start"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <state key="normal" title="Download"/>
                         <connections>
                             <action selector="downloadTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="iyk-aN-i9r"/>
                         </connections>
@@ -64,7 +65,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLp-CI-fGV">
-                        <rect key="frame" x="175" y="70" width="65" height="30"/>
+                        <rect key="frame" x="175" y="70" width="48" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <state key="normal" title="Cancel"/>
                         <connections>
@@ -75,14 +76,16 @@
                 <constraints>
                     <constraint firstItem="laW-dg-tiV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="6HD-C3-BBX"/>
                     <constraint firstItem="wZ1-oo-Wbj" firstAttribute="top" secondItem="laW-dg-tiV" secondAttribute="bottom" constant="15" id="6In-dZ-2y5"/>
-                    <constraint firstAttribute="trailing" secondItem="KPo-dv-0mq" secondAttribute="trailing" constant="20" id="ABH-E2-wXj"/>
-                    <constraint firstItem="KPo-dv-0mq" firstAttribute="top" secondItem="wZ1-oo-Wbj" secondAttribute="bottom" constant="10" id="JLo-S4-v8a"/>
+                    <constraint firstItem="KPo-dv-0mq" firstAttribute="top" secondItem="wZ1-oo-Wbj" secondAttribute="bottom" constant="10" id="FkP-Iv-8xl"/>
+                    <constraint firstAttribute="bottom" secondItem="KPo-dv-0mq" secondAttribute="bottom" constant="4.5" id="Jea-FW-1V4"/>
+                    <constraint firstAttribute="trailing" secondItem="KPo-dv-0mq" secondAttribute="trailing" constant="20" id="KQE-K7-CVK"/>
+                    <constraint firstAttribute="bottom" secondItem="pgB-bT-wio" secondAttribute="bottom" constant="4.5" id="Op0-rg-Uiv"/>
                     <constraint firstAttribute="trailing" secondItem="wZ1-oo-Wbj" secondAttribute="trailing" constant="20" id="Rtf-8R-EC8"/>
                     <constraint firstAttribute="trailing" secondItem="laW-dg-tiV" secondAttribute="trailing" constant="20" id="ShF-Mh-0Xc"/>
+                    <constraint firstItem="pgB-bT-wio" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="abD-VK-Ekf"/>
                     <constraint firstItem="laW-dg-tiV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="dMj-jz-sXo"/>
-                    <constraint firstItem="pgB-bT-wio" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="dkt-zL-FBK"/>
                     <constraint firstItem="wZ1-oo-Wbj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="lVm-VM-o9k"/>
-                    <constraint firstItem="pgB-bT-wio" firstAttribute="top" secondItem="wZ1-oo-Wbj" secondAttribute="bottom" constant="10" id="soj-Cm-pQk"/>
+                    <constraint firstItem="pgB-bT-wio" firstAttribute="top" secondItem="wZ1-oo-Wbj" secondAttribute="bottom" constant="10" id="uDg-3y-DRR"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
